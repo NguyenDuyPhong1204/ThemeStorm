@@ -12,8 +12,12 @@ fun NavController.navigateToMineScreen(navOptions: NavOptions? = null) {
     navigate(MINE_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.mineScreen() {
+fun NavGraphBuilder.mineScreen(
+    onNavBack: () -> Unit
+) {
     composable(MINE_ROUTE) {
-        MineRoute()
+        MineRoute(
+            onNavBack = onNavBack
+        )
     }
 }

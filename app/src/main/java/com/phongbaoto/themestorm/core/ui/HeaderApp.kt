@@ -3,6 +3,7 @@ package com.phongbaoto.themestorm.core.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,10 +28,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.phongbaoto.themestorm.R
 import com.phongbaoto.themestorm.core.theme.DefaultColorApp
+
+@Preview
+@Composable
+private fun PreviewHeaderApp() {
+    HeaderApp(
+        title = "Themes",
+        {},
+        {},
+        {}
+    )
+}
 
 @Composable
 fun HeaderApp(
@@ -48,7 +62,7 @@ fun HeaderApp(
     ) {
         Row(
             modifier = Modifier
-                .weight(1f),
+                .width(120.dp),
         ) {
             Button(
                 onClick = onClickMine,
@@ -114,51 +128,57 @@ fun HeaderApp(
                 fontWeight = FontWeight.SemiBold
             ),
             color = Color.Black,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center
         )
 
-        Button(
-            onClick = onClickCoin,
+        Box(
             modifier = Modifier
-                .width(83.dp)
-                .height(26.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-            ),
-            shape = RoundedCornerShape(10.dp),
-            elevation = ButtonDefaults.elevatedButtonElevation(1.dp),
-            contentPadding = PaddingValues(5.dp)
-        ) {
-            Row(
+                .width(120.dp),
+            contentAlignment = Alignment.CenterEnd
+        ){
+            Button(
+                onClick = onClickCoin,
                 modifier = Modifier
-                    .fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .width(83.dp)
+                    .height(26.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                ),
+                shape = RoundedCornerShape(10.dp),
+                elevation = ButtonDefaults.elevatedButtonElevation(1.dp),
+                contentPadding = PaddingValues(5.dp)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_coin),
-                    contentDescription = "image coin",
+                Row(
                     modifier = Modifier
-                        .size(15.dp),
-                )
-                Text(
-                    text = 0.toString(),
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = FontWeight.Light,
-                        lineHeight = 15.sp
-                    ),
-                    color = Color.Black,
-                    modifier = Modifier.padding(start = 5.dp)
-                )
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "image coin",
-                    modifier = Modifier
-                        .size(15.dp),
-                    tint = DefaultColorApp
-                )
+                        .fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_coin),
+                        contentDescription = "image coin",
+                        modifier = Modifier
+                            .size(15.dp),
+                    )
+                    Text(
+                        text = 0.toString(),
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Light,
+                            lineHeight = 15.sp
+                        ),
+                        color = Color.Black,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "image coin",
+                        modifier = Modifier
+                            .size(15.dp),
+                        tint = DefaultColorApp
+                    )
+                }
             }
         }
-
     }
 }

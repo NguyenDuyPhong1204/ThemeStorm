@@ -7,13 +7,14 @@ import com.phongbaoto.themestorm.app.helper.LocalAppViewModel
 import com.phongbaoto.themestorm.app.helper.LocalNavController
 import com.phongbaoto.themestorm.feature.control.navigation.controlScreen
 import com.phongbaoto.themestorm.feature.mine.navigation.mineScreen
+import com.phongbaoto.themestorm.feature.mine.navigation.navigateToMineScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.THEME_ROUTE
 import com.phongbaoto.themestorm.feature.theme.navigation.themeScreen
 import com.phongbaoto.themestorm.feature.wallpaper.navigation.wallpaperScreen
 import com.phongbaoto.themestorm.feature.widget.navigation.widgetScreen
 
 @Composable
-fun MainNavHost(){
+fun MainNavHost() {
     val navController = LocalNavController.current!!
     val appViewMode = LocalAppViewModel.current!!
     val context = LocalContext.current
@@ -21,11 +22,21 @@ fun MainNavHost(){
     NavHost(
         navController = navController,
         startDestination = THEME_ROUTE
-    ){
-        themeScreen()
+    ) {
+        themeScreen(
+            onNavigateToMine = {
+                navController.navigateToMineScreen()
+            },
+            onNavigateToCoin = {},
+            onNavigateToSearch = {}
+        )
         widgetScreen()
         wallpaperScreen()
         controlScreen()
-        mineScreen()
+        mineScreen(
+            onNavBack = {
+                navController.popBackStack()
+            }
+        )
     }
 }

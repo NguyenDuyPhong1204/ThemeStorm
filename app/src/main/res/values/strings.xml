@@ -9,4 +9,26 @@
     <string name="editors_pick">Editor’s Picks</string>
     <string name="theme_pack">Theme Pack</string>
     <string name="popular">Popular</string>
+    <string name="gif">GIF</string>
+    <string name="music">Music</string>
+    <string name="time">Time</string>
+    <string name="live">Live</string>
+    <string name="still">Still</string>
+    <string name="anime">Anime</string>
+    <string name="space">Space</string>
+    <string name="dark">Dark</string>
+    <string name="nature">Nature</string>
+    <string name="cute">Cute</string>
+    <string name="limit_time_offer">LIMITED TIME OFFER</string>
+    <string name="all_content_no_ads">All content. No ads.</string>
+    <string name="favorite">Favorite</string>
+    <string name="download">Download</string>
+    <string name="adaptive_control">Enable Control Center</string>
+    <string name="enable_control">Adaptive Icon</string>
+    <string name="icon_watermark">Icon without watermark</string>
+    <string name="subcription_management">Subscription Management</string>
+    <string name="how_to_use">How to use</string>
+    <string name="rate_us">Rate us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>

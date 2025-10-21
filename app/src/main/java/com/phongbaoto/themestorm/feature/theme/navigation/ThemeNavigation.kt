@@ -8,12 +8,20 @@ import com.phongbaoto.themestorm.feature.theme.ThemeRoute
 
 const val THEME_ROUTE = "THEME_ROUTE"
 
-fun NavController.navigateToThemeScreen(navOptions: NavOptions?= null){
+fun NavController.navigateToThemeScreen(navOptions: NavOptions? = null) {
     navigate(THEME_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.themeScreen(){
-    composable(THEME_ROUTE){
-        ThemeRoute()
+fun NavGraphBuilder.themeScreen(
+    onNavigateToMine: () -> Unit,
+    onNavigateToCoin: () -> Unit,
+    onNavigateToSearch: () -> Unit
+) {
+    composable(THEME_ROUTE) {
+        ThemeRoute(
+            onNavigateToMine = onNavigateToMine,
+            onNavigateToCoin = onNavigateToCoin,
+            onNavigateToSearch = onNavigateToSearch
+        )
     }
 }
