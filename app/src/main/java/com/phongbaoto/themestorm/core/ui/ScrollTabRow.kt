@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -43,6 +44,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.phongbaoto.themestorm.core.model.ItemTheme
 import com.phongbaoto.themestorm.core.model.TabItem
 import com.phongbaoto.themestorm.core.theme.DefaultLineColor
 
@@ -50,6 +52,7 @@ import com.phongbaoto.themestorm.core.theme.DefaultLineColor
 fun ScrollTabRow(
     listTab: List<TabItem>,
     isGridLayout: Boolean = true,
+    onClickItem: (ItemTheme) -> Unit
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val listGridState = remember { listTab.map { LazyGridState() } }
@@ -118,8 +121,11 @@ fun ScrollTabRow(
 
         }
         TabContent(
+            listItem = listTab[selectedTabIndex].listTheme,
             isGridLayout = isGridLayout,
-            title = listTab[selectedTabIndex].title,
+            onClickItem = {
+                onClickItem(it)
+            },
             state = listGridState[selectedTabIndex],
             lazyStaggeredGridState = listLazyStaggeredGirdState[selectedTabIndex]
         )
@@ -129,7 +135,8 @@ fun ScrollTabRow(
 @Composable
 fun TabContent(
     isGridLayout: Boolean = true,
-    title: String,
+    onClickItem: (ItemTheme) -> Unit,
+    listItem: List<ItemTheme>,
     state: LazyGridState = remember { LazyGridState() },
     lazyStaggeredGridState: LazyStaggeredGridState = remember { LazyStaggeredGridState() }
 ) {
@@ -145,10 +152,13 @@ fun TabContent(
             verticalArrangement = Arrangement.spacedBy(5.dp),
             contentPadding = PaddingValues(bottom = 5.dp)
         ) {
-            items(10) { index ->
+            items(listItem) { item ->
                 ItemCard(
-                    title = title + index,
-                    modifier = Modifier
+                    item = item,
+                    modifier = Modifier,
+                    onClickItem = {
+                        onClickItem(item)
+                    }
                 )
             }
         }
@@ -164,7 +174,7 @@ fun TabContent(
             contentPadding = PaddingValues(bottom = 5.dp)
         ) {
             itemsIndexed(
-                items = items,
+                items = listItem,
                 span = { index, _ ->
                     // index % 3 == 0 → full width
                     // index % 3 == 1 hoặc 2 → half width
@@ -175,7 +185,13 @@ fun TabContent(
                     }
                 }
             ) { index, item ->
-                CardItemWidget(title = title + index)
+                CardItemWidget(
+                    item = item,
+                    modifier = Modifier,
+                    onClickItem = {
+                        onClickItem(item)
+                    }
+                )
             }
         }
     }

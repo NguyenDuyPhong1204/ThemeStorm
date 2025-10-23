@@ -17,6 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,26 +40,28 @@ import com.phongbaoto.themestorm.core.ui.SpaceColumn
 import com.phongbaoto.themestorm.core.ui.SpaceRow
 import com.phongbaoto.themestorm.feature.mine.component.EnableAdaptiveIcon
 import com.phongbaoto.themestorm.feature.mine.component.LimitTimeOffer
-
-@Preview
-@Composable
-private fun PreviewMine() {
-    MineScreen { }
-}
-
 @Composable
 fun MineRoute(
-    onNavBack: () -> Unit
+    onNavBack: () -> Unit,
+    onNavigateToFavorite: () -> Unit,
+    onNavigateToDownload: () -> Unit
 ) {
     MineScreen(
-        onNavBack = onNavBack
+        onNavBack = onNavBack,
+        onNavigateToFavorite = onNavigateToFavorite,
+        onNavigateToDownload = onNavigateToDownload
     )
 }
 
 @Composable
 private fun MineScreen(
-    onNavBack: () -> Unit
+    onNavBack: () -> Unit,
+    onNavigateToFavorite: () -> Unit,
+    onNavigateToDownload: () -> Unit
 ) {
+    var enableControl by remember { mutableStateOf(false) }
+    var enableAdaptiveIcon by remember { mutableStateOf(false) }
+    var enableIconWaterMark by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,19 +82,23 @@ private fun MineScreen(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             //favorite
             Row(
                 modifier = Modifier
-                    .width(140.dp)
-                    .height(45.dp)
-                    .clickable(onClick = {})
-                    .background(color = Color.White, shape = RoundedCornerShape(15.dp))
                     .clip(RoundedCornerShape(15.dp))
-                    .border(width = 1.dp, color = Color(0xFFCFCFCF), shape = RoundedCornerShape(15.dp))
+                    .width(140.dp)
+                    .height(55.dp)
+                    .clickable(onClick = onNavigateToFavorite)
+                    .background(color = Color.White, shape = RoundedCornerShape(15.dp))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFCFCFCF),
+                        shape = RoundedCornerShape(15.dp)
+                    )
                     .padding(5.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Image(
                     painter = painterResource(R.drawable.ic_favorite),
                     contentDescription = "icon favorite",
@@ -98,7 +108,7 @@ private fun MineScreen(
                 SpaceRow(10.dp)
                 Column(
                     modifier = Modifier
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.favorite),
                         fontSize = 15.sp,
@@ -116,15 +126,19 @@ private fun MineScreen(
             //download
             Row(
                 modifier = Modifier
-                    .width(140.dp)
-                    .height(45.dp)
-                    .clickable(onClick = {})
-                    .background(color = Color.White, shape = RoundedCornerShape(15.dp))
                     .clip(RoundedCornerShape(15.dp))
-                    .border(width = 1.dp, color = Color(0xFFCFCFCF), shape = RoundedCornerShape(15.dp))
+                    .width(140.dp)
+                    .height(55.dp)
+                    .clickable(onClick = onNavigateToDownload)
+                    .background(color = Color.White, shape = RoundedCornerShape(15.dp))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFCFCFCF),
+                        shape = RoundedCornerShape(15.dp)
+                    )
                     .padding(vertical = 5.dp, horizontal = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Image(
                     painter = painterResource(R.drawable.ic_dowload_2),
                     contentDescription = "icon download",
@@ -134,7 +148,7 @@ private fun MineScreen(
                 SpaceRow(10.dp)
                 Column(
                     modifier = Modifier
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.download),
                         fontSize = 15.sp,
@@ -157,7 +171,20 @@ private fun MineScreen(
             color = DefaultLineColor
         )
         //
-        EnableAdaptiveIcon()
+        EnableAdaptiveIcon(
+            enableAdaptiveIcon = enableAdaptiveIcon,
+            enableControl = enableControl,
+            enableIconWaterMark = enableIconWaterMark,
+            onClickControl = {
+                enableControl = !enableControl
+            },
+            onClickAdaptiveIcon = {
+                enableAdaptiveIcon = !enableAdaptiveIcon
+            },
+            onClickIconWaterMark = {
+                enableIconWaterMark = !enableIconWaterMark
+            }
+        )
         ////sub and how to use
         SpaceColumn(20.dp)
         HorizontalDivider(
@@ -169,7 +196,7 @@ private fun MineScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-        ){
+        ) {
             RowMineItem(
                 iconRes = R.drawable.ic_subcription_management,
                 textRes = R.string.subcription_management,
@@ -192,7 +219,7 @@ private fun MineScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-        ){
+        ) {
             RowMineItem(
                 iconRes = R.drawable.ic_rate_us,
                 textRes = R.string.rate_us,

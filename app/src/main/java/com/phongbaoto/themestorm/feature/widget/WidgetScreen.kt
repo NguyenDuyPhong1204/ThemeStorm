@@ -11,24 +11,45 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.phongbaoto.themestorm.R
+import com.phongbaoto.themestorm.core.model.ItemTheme
 import com.phongbaoto.themestorm.core.model.TabItem
+import com.phongbaoto.themestorm.core.model.listNew
 import com.phongbaoto.themestorm.core.theme.DefaultBackGroundColor
 import com.phongbaoto.themestorm.core.ui.HeaderApp
 import com.phongbaoto.themestorm.core.ui.ScrollTabRow
 import com.phongbaoto.themestorm.core.ui.SpaceColumn
 
 @Composable
-fun WidgetRoute() {
-    WidgetScreen()
+fun WidgetRoute(
+    onNavigateToMine: () -> Unit,
+    onNavigateToCoin: () -> Unit,
+    onNavigateToSearch: () -> Unit,
+    onNavigateToDownload: (ItemTheme) -> Unit
+) {
+    WidgetScreen(
+        onNavigateToMine = onNavigateToMine,
+        onNavigateToCoin = onNavigateToCoin,
+        onNavigateToSearch = onNavigateToSearch,
+        onNavigateToDownload = onNavigateToDownload
+    )
 }
 
 @Composable
-private fun WidgetScreen() {
+private fun WidgetScreen(
+    onNavigateToMine: () -> Unit,
+    onNavigateToCoin: () -> Unit,
+    onNavigateToSearch: () -> Unit,
+    onNavigateToDownload: (ItemTheme) -> Unit
+) {
     val tabList = listOf(
-        TabItem(title = stringResource(R.string.new_text)),
-        TabItem(title = stringResource(R.string.gif)),
-        TabItem(title = stringResource(R.string.music)),
-        TabItem(title = stringResource(R.string.time), icon = R.drawable.ic_fire)
+        TabItem(title = stringResource(R.string.new_text), listTheme = listNew),
+        TabItem(title = stringResource(R.string.gif), listTheme = listNew),
+        TabItem(title = stringResource(R.string.music), listTheme = listNew),
+        TabItem(
+            title = stringResource(R.string.time),
+            icon = R.drawable.ic_fire,
+            listTheme = listNew
+        )
     )
     Column(
         modifier = Modifier
@@ -43,15 +64,16 @@ private fun WidgetScreen() {
         ) {
             HeaderApp(
                 title = stringResource(R.string.widget),
-                onClickMine = {},
-                onClickCoin = {},
-                onClickSearch = {}
+                onClickMine = onNavigateToMine,
+                onClickCoin = onNavigateToCoin,
+                onClickSearch = onNavigateToSearch
             )
         }
         SpaceColumn(10.dp)
         ScrollTabRow(
             listTab = tabList,
-            isGridLayout = false
+            isGridLayout = false,
+            onClickItem = onNavigateToDownload
         )
     }
 }

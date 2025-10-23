@@ -23,8 +23,8 @@
     <string name="all_content_no_ads">All content. No ads.</string>
     <string name="favorite">Favorite</string>
     <string name="download">Download</string>
-    <string name="adaptive_control">Enable Control Center</string>
-    <string name="enable_control">Adaptive Icon</string>
+    <string name="adaptive_control">Adaptive Icon</string>
+    <string name="enable_control">Enable Control Center</string>
     <string name="icon_watermark">Icon without watermark</string>
     <string name="subcription_management">Subscription Management</string>
     <string name="how_to_use">How to use</string>

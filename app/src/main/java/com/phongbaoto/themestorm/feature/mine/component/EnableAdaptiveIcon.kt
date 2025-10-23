@@ -19,23 +19,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.phongbaoto.themestorm.R
 import com.phongbaoto.themestorm.core.ui.SpaceRow
+
 data class EnableAdaptiveIcon(
     val iconRes: Int,
     val textRes: Int,
 )
-@Preview
-@Composable
-private fun PreviewEnable() {
-    EnableAdaptiveIcon()
-}
 
 @Composable
-fun EnableAdaptiveIcon() {
+fun EnableAdaptiveIcon(
+    enableAdaptiveIcon: Boolean,
+    enableControl: Boolean,
+    enableIconWaterMark: Boolean,
+    onClickAdaptiveIcon: () -> Unit,
+    onClickControl: () -> Unit,
+    onClickIconWaterMark: () -> Unit
+) {
     val listItemEnable = listOf(
         EnableAdaptiveIcon(R.drawable.ic_enable_control, R.string.enable_control),
         EnableAdaptiveIcon(R.drawable.ic_adaptive_icon, R.string.adaptive_control),
@@ -45,24 +47,28 @@ fun EnableAdaptiveIcon() {
         modifier = Modifier
             .fillMaxWidth()
             .background(color = Color.Transparent)
-    ){
+    ) {
         ItemEnable(
+            enable = enableControl,
             item = listItemEnable[0],
-            onChangeSwitch = {}
+            onChangeSwitch = onClickControl
         )
         ItemEnable(
+            enable = enableAdaptiveIcon,
             item = listItemEnable[1],
-            onChangeSwitch = {}
+            onChangeSwitch = onClickAdaptiveIcon
         )
         ItemEnable(
+            enable = enableIconWaterMark,
             item = listItemEnable[2],
-            onChangeSwitch = {}
+            onChangeSwitch = onClickIconWaterMark
         )
     }
 }
 
 @Composable
 private fun ItemEnable(
+    enable: Boolean,
     item: EnableAdaptiveIcon,
     onChangeSwitch: () -> Unit
 ) {
@@ -92,8 +98,8 @@ private fun ItemEnable(
             )
         }
         Switch(
-            checked = true,
-            onCheckedChange = {onChangeSwitch()},
+            checked = enable,
+            onCheckedChange = { onChangeSwitch() },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
                 checkedTrackColor = Color(0xFF45CE48)

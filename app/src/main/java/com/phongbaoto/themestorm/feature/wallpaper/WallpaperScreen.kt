@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.phongbaoto.themestorm.R
+import com.phongbaoto.themestorm.core.model.ItemTheme
 import com.phongbaoto.themestorm.core.model.TabItem
+import com.phongbaoto.themestorm.core.model.listNew
 import com.phongbaoto.themestorm.core.theme.DefaultBackGroundColor
 import com.phongbaoto.themestorm.core.ui.HeaderApp
 import com.phongbaoto.themestorm.core.ui.ScrollTabRow
@@ -24,23 +26,38 @@ import com.phongbaoto.themestorm.core.ui.SpaceColumn
 import com.phongbaoto.themestorm.feature.wallpaper.component.LiveStillComponent
 
 @Composable
-fun WallpaperRoute() {
-    WallpaperScreen()
+fun WallpaperRoute(
+    onNavigateToMine: () -> Unit,
+    onNavigateToCoin: () -> Unit,
+    onNavigateToSearch: () -> Unit,
+    onNavigateToDownload: (ItemTheme) -> Unit
+) {
+    WallpaperScreen(
+        onNavigateToMine = onNavigateToMine,
+        onNavigateToCoin = onNavigateToCoin,
+        onNavigateToSearch = onNavigateToSearch,
+        onNavigateToDownload = onNavigateToDownload
+    )
 }
 
 @Composable
-private fun WallpaperScreen() {
+private fun WallpaperScreen(
+    onNavigateToMine: () -> Unit,
+    onNavigateToCoin: () -> Unit,
+    onNavigateToSearch: () -> Unit,
+    onNavigateToDownload: (ItemTheme) -> Unit
+) {
     val tabListLive = listOf(
-        TabItem(title = stringResource(R.string.new_text)),
-        TabItem(title = stringResource(R.string.popular)),
-        TabItem(title = stringResource(R.string.anime)),
-        TabItem(title = stringResource(R.string.space), icon = R.drawable.ic_fire)
+        TabItem(title = stringResource(R.string.new_text), listTheme = listNew),
+        TabItem(title = stringResource(R.string.popular), listTheme = listNew),
+        TabItem(title = stringResource(R.string.anime), listTheme = listNew),
+        TabItem(title = stringResource(R.string.space), icon = R.drawable.ic_fire, listTheme = listNew)
     )
     val tabListStill = listOf(
-        TabItem(title = stringResource(R.string.new_text)),
-        TabItem(title = stringResource(R.string.popular)),
-        TabItem(title = stringResource(R.string.dark)),
-        TabItem(title = stringResource(R.string.nature))
+        TabItem(title = stringResource(R.string.new_text), listTheme = listNew),
+        TabItem(title = stringResource(R.string.popular), listTheme = listNew),
+        TabItem(title = stringResource(R.string.dark), listTheme = listNew),
+        TabItem(title = stringResource(R.string.nature), listTheme = listNew)
     )
     var selectedMode by remember { mutableIntStateOf(1) }
     val currentTabList = if (selectedMode == 0) tabListLive else tabListStill
@@ -58,9 +75,9 @@ private fun WallpaperScreen() {
         ) {
             HeaderApp(
                 title = stringResource(R.string.wall_paper),
-                onClickMine = {},
-                onClickCoin = {},
-                onClickSearch = {}
+                onClickMine = onNavigateToMine,
+                onClickCoin = onNavigateToCoin,
+                onClickSearch = onNavigateToSearch
             )
         }
         LiveStillComponent(
@@ -72,6 +89,7 @@ private fun WallpaperScreen() {
         SpaceColumn(20.dp)
         ScrollTabRow(
             listTab = currentTabList,
+            onClickItem = onNavigateToDownload
         )
     }
 }

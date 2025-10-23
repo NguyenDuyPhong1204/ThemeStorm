@@ -13,11 +13,15 @@ fun NavController.navigateToMineScreen(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.mineScreen(
-    onNavBack: () -> Unit
+    onNavBack: () -> Unit,
+    onNavigateToFavorite: () -> Unit,
+    onNavigateToDownload: () -> Unit
 ) {
     composable(MINE_ROUTE) {
         MineRoute(
-            onNavBack = onNavBack
+            onNavBack = onNavBack,
+            onNavigateToFavorite = onNavigateToFavorite,
+            onNavigateToDownload = onNavigateToDownload
         )
     }
 }
