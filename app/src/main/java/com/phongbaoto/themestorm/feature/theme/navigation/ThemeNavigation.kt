@@ -7,11 +7,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.phongbaoto.themestorm.core.model.ItemTheme
 import com.phongbaoto.themestorm.feature.theme.DownloadThemeRoute
+import com.phongbaoto.themestorm.feature.theme.InstallThemeRoute
 import com.phongbaoto.themestorm.feature.theme.ThemeRoute
 import com.phongbaoto.themestorm.navigation.sharedViewModel
 
 const val THEME_ROUTE = "THEME_ROUTE"
 const val DOWNLOAD_THEME_ROUTE = "DOWNLOAD_THEME_ROUTE"
+const val INSTALL_THEME_ROUTE = "INSTALL_THEME_ROUTE"
 
 fun NavController.navigateToThemeScreen(navOptions: NavOptions? = null) {
     navigate(THEME_ROUTE, navOptions)
@@ -21,6 +23,11 @@ fun NavController.navigateToDownloadThemeScreen(item: ItemTheme, navOptions: Nav
     sharedViewModel.put("item_theme", item, ItemTheme::class.java)
     navigate(DOWNLOAD_THEME_ROUTE, navOptions)
 }
+
+fun NavController.navigateToInstallThemeScreen(navOptions: NavOptions? = null) {
+    navigate(INSTALL_THEME_ROUTE, navOptions)
+}
+
 
 fun NavGraphBuilder.themeScreen(
     onNavigateToMine: () -> Unit,
@@ -38,13 +45,28 @@ fun NavGraphBuilder.themeScreen(
     }
 }
 
-fun NavGraphBuilder.downloadThemeScreen() {
+fun NavGraphBuilder.downloadThemeScreen(
+    onNavBack: () -> Unit,
+    onNavigateToInstallTheme: () -> Unit
+) {
     composable(DOWNLOAD_THEME_ROUTE) {
         val item = remember { sharedViewModel.get("item_theme", ItemTheme::class.java) }
         item?.let {
             DownloadThemeRoute(
-                itemTheme = it
+                itemTheme = it,
+                onNavBack = onNavBack,
+                onNavigateToInstallTheme = onNavigateToInstallTheme
             )
         }
+    }
+}
+
+fun NavGraphBuilder.installThemeScreen(
+    onNavBack: () -> Unit
+){
+    composable(INSTALL_THEME_ROUTE){
+        InstallThemeRoute(
+            onNavBack = onNavBack,
+        )
     }
 }

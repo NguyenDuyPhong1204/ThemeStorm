@@ -14,7 +14,9 @@ import com.phongbaoto.themestorm.feature.mine.navigation.mineScreen
 import com.phongbaoto.themestorm.feature.mine.navigation.navigateToMineScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.THEME_ROUTE
 import com.phongbaoto.themestorm.feature.theme.navigation.downloadThemeScreen
+import com.phongbaoto.themestorm.feature.theme.navigation.installThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.navigateToDownloadThemeScreen
+import com.phongbaoto.themestorm.feature.theme.navigation.navigateToInstallThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.themeScreen
 import com.phongbaoto.themestorm.feature.wallpaper.navigation.wallpaperScreen
 import com.phongbaoto.themestorm.feature.widget.navigation.widgetScreen
@@ -39,7 +41,19 @@ fun MainNavHost() {
                 navController.navigateToDownloadThemeScreen(it)
             }
         )
-        downloadThemeScreen()
+        downloadThemeScreen(
+            onNavBack = {
+                navController.popBackStack()
+            },
+            onNavigateToInstallTheme = {
+                navController.navigateToInstallThemeScreen()
+            }
+        )
+        installThemeScreen(
+            onNavBack = {
+                navController.popBackStack()
+            }
+        )
         widgetScreen(
             onNavigateToMine = {
                 navController.navigateToMineScreen()

@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -18,6 +22,7 @@ import com.phongbaoto.themestorm.core.theme.DefaultBackGroundColor
 import com.phongbaoto.themestorm.core.ui.HeaderApp
 import com.phongbaoto.themestorm.core.ui.ScrollTabRow
 import com.phongbaoto.themestorm.core.ui.SpaceColumn
+import com.phongbaoto.themestorm.feature.widget.component.WidgetBottomSheet
 
 @Composable
 fun WidgetRoute(
@@ -51,6 +56,7 @@ private fun WidgetScreen(
             listTheme = listNew
         )
     )
+    var isShowSheet by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +79,20 @@ private fun WidgetScreen(
         ScrollTabRow(
             listTab = tabList,
             isGridLayout = false,
-            onClickItem = onNavigateToDownload
+            onClickItem = {
+                isShowSheet = true
+            }
+        )
+
+        WidgetBottomSheet(
+            isShowSheet = isShowSheet,
+            onDismiss = {
+                isShowSheet = false
+            },
+            onClose = {},
+            onClickInfo = {},
+            onDownload = {},
+            onClickFavorite = {}
         )
     }
 }

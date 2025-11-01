@@ -140,7 +140,6 @@ fun TabContent(
     state: LazyGridState = remember { LazyGridState() },
     lazyStaggeredGridState: LazyStaggeredGridState = remember { LazyStaggeredGridState() }
 ) {
-    val items = List(20) { "Widget Item $it" }
     if (isGridLayout) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
