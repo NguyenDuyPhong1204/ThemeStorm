@@ -1,4 +1,4 @@
-package com.phongbaoto.themestorm.feature.theme
+package com.phongbaoto.themestorm.feature.wallpaper
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,122 +6,102 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.phongbaoto.themestorm.R
-import com.phongbaoto.themestorm.core.model.IconThem
-import com.phongbaoto.themestorm.core.model.listTestIconTheme
-import com.phongbaoto.themestorm.feature.theme.component.ItemChangeTheme
-import com.phongbaoto.themestorm.feature.theme.component.TopAppBarInstall
+import com.phongbaoto.themestorm.core.ui.SpaceColumn
+import com.phongbaoto.themestorm.core.ui.TopAppBarDownload
 
 @Composable
-fun InstallThemeRoute(
+fun WallpaperUnlockRoute(
     onNavBack: () -> Unit,
-//    onClickQuestion: () -> Unit,
-//    onClickCoin: () -> Unit
 ) {
-    InstallThemeScreen(
+    WallpaperUnlockScreen(
         onNavBack = onNavBack,
-        onClickQuestion = {},
-        onClickCoin = {},
+        onGetAll = {},
         onUnlock = {},
-        onGetAll = {}
+        onClickInfo = {},
+        onClickFavorite = {}
     )
 }
 
 @Composable
-private fun InstallThemeScreen(
-    onNavBack: () -> Unit = {},
-    onClickQuestion: () -> Unit = {},
-    onClickCoin: () -> Unit = {},
+private fun WallpaperUnlockScreen(
+    onNavBack: () -> Unit,
+    onGetAll: () -> Unit,
     onUnlock: () -> Unit,
-    onGetAll: () -> Unit
+    onClickInfo: () -> Unit,
+    onClickFavorite: () -> Unit,
 ) {
-    var selectedIcon by remember { mutableStateOf<IconThem?>(null) }
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TopAppBarInstall(
-                title = stringResource(R.string.install_theme),
-                onNavBack = onNavBack,
-                onClickQuestion = onClickQuestion,
-                onClickCoin = onClickCoin
-            )
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                contentPadding = PaddingValues(horizontal = 16.dp)
-            ) {
-                items(listTestIconTheme) { item ->
-                    ItemChangeTheme(
-                        itemTheme = item,
-                        isSelected = item == selectedIcon,
-                        onClickItem = {
-                            selectedIcon = item
-                        },
-                        onUnlockIconTheme = {
-
-                        },
-                        onClickChangeIcon = {}
-                    )
-                    VerticalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        thickness = 1.dp,
-                        color = Color(0xFFC1BFBF)
-                    )
-                }
-            }
-        }
-
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp)
-                .background(color = Color.White)
-                .align(Alignment.BottomCenter)
+                .fillMaxSize()
         ) {
+            Image(
+                painter = painterResource(R.drawable.demo_image_theme),
+                contentDescription = "image demo",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .blur(5.dp),
+                contentScale = ContentScale.Crop
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TopAppBarDownload(
+                onNavBack = onNavBack,
+                onClickInfo = onClickInfo,
+                onClickFavorite = onClickFavorite
+            )
+            SpaceColumn(10.dp)
+            Image(
+                painter = painterResource(R.drawable.demo_image_theme),
+                contentDescription = "image demo",
+                modifier = Modifier
+                    .width(315.dp)
+                    .height(570.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .zIndex(1f),
+                contentScale = ContentScale.Crop
+            )
+            SpaceColumn(40.dp)
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                    .width(315.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(15.dp))
-                        .clickable(onClick = onGetAll)
+                    .clickable(onClick = onGetAll)
                         .width(102.dp)
                         .height(48.dp)
                         .background(
@@ -147,7 +127,7 @@ private fun InstallThemeScreen(
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(15.dp))
-                        .clickable(onClick = onUnlock)
+                    .clickable(onClick = onUnlock)
                         .width(178.dp)
                         .height(48.dp)
                         .background(

@@ -57,6 +57,7 @@ private fun WidgetScreen(
         )
     )
     var isShowSheet by remember { mutableStateOf(false) }
+    var selectedWidget by remember { mutableStateOf<ItemTheme?>(null) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,19 +81,28 @@ private fun WidgetScreen(
             listTab = tabList,
             isGridLayout = false,
             onClickItem = {
+                selectedWidget = it
                 isShowSheet = true
             }
         )
 
-        WidgetBottomSheet(
-            isShowSheet = isShowSheet,
-            onDismiss = {
-                isShowSheet = false
-            },
-            onClose = {},
-            onClickInfo = {},
-            onDownload = {},
-            onClickFavorite = {}
-        )
+        selectedWidget?.let {
+            WidgetBottomSheet(
+                item = it,
+                isShowSheet = isShowSheet,
+                onDismiss = {
+                    isShowSheet = false
+                },
+                onClose = {
+                    isShowSheet = false
+                },
+                onClickInfo = {},
+                onDownload = {
+                    isShowSheet = false
+                    onNavigateToDownload(it)
+                },
+                onClickFavorite = {}
+            )
+        }
     }
 }

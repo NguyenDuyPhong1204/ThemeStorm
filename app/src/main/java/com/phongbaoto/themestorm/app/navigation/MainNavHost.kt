@@ -18,7 +18,11 @@ import com.phongbaoto.themestorm.feature.theme.navigation.installThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.navigateToDownloadThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.navigateToInstallThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.themeScreen
+import com.phongbaoto.themestorm.feature.wallpaper.navigation.navigateToUnlockWallpaperScreen
+import com.phongbaoto.themestorm.feature.wallpaper.navigation.unlockWallpaperScreen
 import com.phongbaoto.themestorm.feature.wallpaper.navigation.wallpaperScreen
+import com.phongbaoto.themestorm.feature.widget.navigation.installWidgetScreen
+import com.phongbaoto.themestorm.feature.widget.navigation.navigateToInstallWidgetScreen
 import com.phongbaoto.themestorm.feature.widget.navigation.widgetScreen
 
 @Composable
@@ -60,15 +64,31 @@ fun MainNavHost() {
             },
             onNavigateToCoin = {},
             onNavigateToSearch = {},
-            onNavigateToDownload = {}
+            onNavigateToDownload = {
+                navController.navigateToInstallWidgetScreen()
+            }
+        )
+        installWidgetScreen(
+            onNavBack = {
+                navController.popBackStack()
+            }
         )
         wallpaperScreen(
             onNavigateToMine = {
                 navController.navigateToMineScreen()
             },
-            onNavigateToCoin = {},
+            onNavigateToCoin = {
+
+            },
             onNavigateToSearch = {},
-            onNavigateToDownload = {}
+            onNavigateToDownload = {
+                navController.navigateToUnlockWallpaperScreen()
+            }
+        )
+        unlockWallpaperScreen(
+            onNavBack = {
+                navController.popBackStack()
+            }
         )
         controlScreen(
             onNavigateToMine = {

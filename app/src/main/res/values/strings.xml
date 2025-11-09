@@ -34,4 +34,7 @@
     <string name="install_theme">Install Theme</string>
     <string name="unlock">Unlock</string>
     <string name="widget_size">Widget Size</string>
+    <string name="install_widget">Install Widget</string>
+    <string name="get_all">Get All</string>
+    <string name="unlock_with">Unlock with</string>
 </resources>

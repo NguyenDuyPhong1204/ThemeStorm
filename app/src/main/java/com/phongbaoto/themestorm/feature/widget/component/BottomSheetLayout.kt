@@ -1,5 +1,6 @@
 package com.phongbaoto.themestorm.feature.widget.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,16 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.phongbaoto.themestorm.R
+import com.phongbaoto.themestorm.core.model.ItemTheme
 import com.phongbaoto.themestorm.core.ui.SpaceColumn
 import kotlinx.coroutines.launch
 
 @Composable
 fun WidgetBottomSheetLayout(
+    item: ItemTheme,
     modifier: Modifier = Modifier,
     onClose: () -> Unit,
     onClickInfo: () -> Unit,
@@ -65,22 +69,15 @@ fun WidgetBottomSheetLayout(
             contentPadding = PaddingValues(horizontal = 60.dp),
             pageSpacing = 24.dp
         ) { page ->
-            Box(
+            Image(
+                painter = painterResource(id = item.imageRes),
+                contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.CenterHorizontally)
                     .size(100.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = pages[page],
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
+            )
         }
 
         SpaceColumn(24.dp)

@@ -49,7 +49,9 @@ fun DownloadThemeRoute(
     DownloadThemeScreen(
         item = itemTheme,
         onNavBack = onNavBack,
-        onNavigateToInstallTheme = onNavigateToInstallTheme
+        onNavigateToInstallTheme = onNavigateToInstallTheme,
+        onClickInfo = {},
+        onClickFavorite = {}
     )
 }
 
@@ -57,7 +59,9 @@ fun DownloadThemeRoute(
 private fun DownloadThemeScreen(
     item: ItemTheme,
     onNavBack: () -> Unit,
-    onNavigateToInstallTheme: () -> Unit
+    onNavigateToInstallTheme: () -> Unit,
+    onClickInfo: () -> Unit,
+    onClickFavorite: () -> Unit,
 ) {
     var downloadProgress by remember { mutableIntStateOf(0) }
     var isDownloading by remember { mutableStateOf(false) }
@@ -94,7 +98,9 @@ private fun DownloadThemeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TopAppBarDownload(
-                onNavBack = onNavBack
+                onNavBack = onNavBack,
+                onClickInfo = onClickInfo,
+                onClickFavorite = onClickFavorite
             )
             SpaceColumn(10.dp)
             Image(

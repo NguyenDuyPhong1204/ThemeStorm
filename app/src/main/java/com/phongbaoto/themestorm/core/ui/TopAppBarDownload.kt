@@ -28,9 +28,13 @@ import com.phongbaoto.themestorm.core.theme.GrayColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarDownload(
-    onNavBack: () -> Unit
+    onNavBack: () -> Unit,
+    onClickInfo: () -> Unit,
+    onClickFavorite: () -> Unit
 ) {
     TopAppBar(
+        modifier = Modifier
+            .padding(horizontal = 16.dp),
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent
         ),
@@ -61,7 +65,7 @@ fun TopAppBarDownload(
                     .background(Color.White, shape = RoundedCornerShape(100.dp))
             ) {
                 IconButton(
-                    onClick = {}
+                    onClick = onClickInfo
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_infomation),
@@ -78,7 +82,7 @@ fun TopAppBarDownload(
                     color = GrayColor
                 )
                 IconButton(
-                    onClick = {}
+                    onClick = onClickFavorite
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_love),
