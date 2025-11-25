@@ -6,12 +6,15 @@ import androidx.navigation.compose.NavHost
 import com.phongbaoto.themestorm.app.helper.LocalAppViewModel
 import com.phongbaoto.themestorm.app.helper.LocalNavController
 import com.phongbaoto.themestorm.feature.control.navigation.controlScreen
+import com.phongbaoto.themestorm.feature.control.navigation.controlUnlockScreen
+import com.phongbaoto.themestorm.feature.control.navigation.navigateToControlUnlockScreen
 import com.phongbaoto.themestorm.feature.download.navigation.downloadScreen
 import com.phongbaoto.themestorm.feature.download.navigation.navigateToDownloadScreen
 import com.phongbaoto.themestorm.feature.favorite.navigation.favoriteScreen
 import com.phongbaoto.themestorm.feature.favorite.navigation.navigateToFavoriteScreen
 import com.phongbaoto.themestorm.feature.mine.navigation.mineScreen
 import com.phongbaoto.themestorm.feature.mine.navigation.navigateToMineScreen
+import com.phongbaoto.themestorm.feature.search.navigation.searchScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.THEME_ROUTE
 import com.phongbaoto.themestorm.feature.theme.navigation.downloadThemeScreen
 import com.phongbaoto.themestorm.feature.theme.navigation.installThemeScreen
@@ -96,7 +99,9 @@ fun MainNavHost() {
             },
             onNavigateToCoin = {},
             onNavigateToSearch = {},
-            onNavigateToDownload = {}
+            onNavigateToDownload = {
+                navController.navigateToControlUnlockScreen()
+            }
         )
         mineScreen(
             onNavBack = {
@@ -111,5 +116,11 @@ fun MainNavHost() {
         )
         favoriteScreen()
         downloadScreen()
+        controlUnlockScreen(
+            onNavBack = {
+                navController.popBackStack()
+            }
+        )
+        searchScreen()
     }
 }
